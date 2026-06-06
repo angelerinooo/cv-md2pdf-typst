@@ -1,0 +1,14 @@
+# Folders
+assets/*
+input/*
+output/*
+src/**/bin/*
+src/**/obj/*
+
+# File Types
+*.tar.gz
+*.zip
+
+# Publish artifacts
+publish/*
+publish2/*
