@@ -37,13 +37,19 @@ public static class MarkdownToTypstConverter
         ["at"] = "envelope"
     };
 
-    public static string Convert(string markdown)
+    public static string Convert(string markdown, bool noHyphenate = false)
     {
         var lines = markdown.Replace("\r\n", "\n").Split('\n');
         var startIndex = GetContentStartIndex(lines);
         var sidebarSections = ExtractSidebarSections(lines, startIndex);
         var sidebarLineIndexes = GetSidebarLineIndexes(sidebarSections);
-        return BuildBodyComponentsTypst(lines, startIndex, sidebarLineIndexes);
+        var body = BuildBodyComponentsTypst(lines, startIndex, sidebarLineIndexes);
+        if (noHyphenate)
+        {
+            return "#set text(hyphenate: false)\n" + body;
+        }
+
+        return body;
     }
 
     public static MarkdownMetadata ExtractMetadata(string markdown)

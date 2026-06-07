@@ -17,6 +17,7 @@ public static class OptionParser
         "template",
         "author",
         "position",
+        "no-hyphenate",
         "help",
         "h"
     };
@@ -52,6 +53,13 @@ public static class OptionParser
                 || string.Equals(key, "h", StringComparison.OrdinalIgnoreCase))
             {
                 values["help"] = "true";
+                continue;
+            }
+
+            // Flag: --no-hyphenate (no value expected)
+            if (string.Equals(key, "no-hyphenate", StringComparison.OrdinalIgnoreCase))
+            {
+                values["no-hyphenate"] = "true";
                 continue;
             }
 
@@ -93,6 +101,8 @@ public static class OptionParser
         values.TryGetValue("author", out var author);
         values.TryGetValue("position", out var position);
 
+        var noHyphenate = values.ContainsKey("no-hyphenate");
+
         if (result.Errors.Count > 0)
         {
             return result;
@@ -107,7 +117,8 @@ public static class OptionParser
                 OutputPdfPath = output!,
                 TemplatePath = template,
                 Author = author,
-                Position = position
+                Position = position,
+                NoHyphenate = noHyphenate
             }
         };
     }

@@ -7,4 +7,5 @@ public sealed class ConverterOptions
     public required string TemplatePath { get; init; }
     public string? Author { get; init; }
     public string? Position { get; init; }
+    public bool NoHyphenate { get; init; }
 }

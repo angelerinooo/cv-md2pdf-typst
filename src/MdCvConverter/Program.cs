@@ -39,7 +39,7 @@ if (!File.Exists(templatePath))
 Directory.CreateDirectory(Path.GetDirectoryName(outputPdfPath) ?? ".");
 
 var markdown = await File.ReadAllTextAsync(inputPath);
-var bodyTypst = MarkdownToTypstConverter.Convert(markdown);
+var bodyTypst = MarkdownToTypstConverter.Convert(markdown, options.NoHyphenate);
 var metadata = MarkdownToTypstConverter.ExtractMetadata(markdown);
 var resolvedAuthor = options.Author ?? metadata.Author ?? "Curriculum Vitae";
 var resolvedPosition = options.Position ?? metadata.Position ?? string.Empty;
@@ -71,5 +71,5 @@ return 0;
 
 static void PrintUsage()
 {
-    Console.WriteLine("Usage: MdCvConverter --input <file.md> --output <file.pdf> [--template <file.typ>] [--author <text>] [--position <text>] [--help|-h]");
+    Console.WriteLine("Usage: MdCvConverter --input <file.md> --output <file.pdf> --template <file.typ> [--no-hyphenate] [--help|-h]");
 }
